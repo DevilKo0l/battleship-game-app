@@ -44,11 +44,15 @@
     <Compile Include="Boards\AttackingBoardModel.cs" />
     <Compile Include="Boards\BoardModel.cs" />
     <Compile Include="Boards\CoordinateModel.cs" />
+    <Compile Include="Boards\CellModel.cs" />
+    <Compile Include="Helpers\CellHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="PlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ships\BattleshipModel.cs" />
     <Compile Include="Ships\DestroyerModel.cs" />
     <Compile Include="Ships\ShipModel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
