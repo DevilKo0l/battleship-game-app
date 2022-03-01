@@ -13,5 +13,18 @@ namespace BattleshipLibrary.Helpers
         {
             return cells.Where(x => x.Coordinate.Row == row && x.Coordinate.Column == column).First();
         }
+
+        //Return all the cells in a defined range
+        public static List<CellModel> Range(this List<CellModel> cells, 
+                                            int startRow, 
+                                            int startCol, 
+                                            int endRow, 
+                                            int endCol)
+        {
+            return cells.Where(x => x.Coordinate.Row >= startRow 
+                                    && x.Coordinate.Column >= startCol 
+                                    && x.Coordinate.Row <= endRow
+                                    && x.Coordinate.Column <= endCol).ToList();
+        }        
     }
 }

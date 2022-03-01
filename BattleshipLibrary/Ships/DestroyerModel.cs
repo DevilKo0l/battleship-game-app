@@ -8,12 +8,12 @@ using BattleshipLibrary.Boards;
 namespace BattleshipLibrary.Ships
 {
     class DestroyerModel:ShipModel
-    {
+    {        
         public DestroyerModel()
         {
             Name = "Destroyer";
-            Size = 4;
-            ShipType = CellType.Destroyer;
+            Size = 4;            
+            CellType = CellType.Destroyer;
         }
     }
 }

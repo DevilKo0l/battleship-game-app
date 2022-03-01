@@ -12,8 +12,8 @@ namespace BattleshipLibrary.Ships
         public BattleshipModel()
         {
             Name = "Battleship";
-            Size = 5;
-            ShipType = CellType.Battleship;
+            Size = 5;            
+            CellType = CellType.Battleship;
         }
     }
 }

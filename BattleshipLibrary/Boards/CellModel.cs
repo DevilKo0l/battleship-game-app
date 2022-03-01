@@ -10,19 +10,19 @@ namespace BattleshipLibrary.Boards
 {
     public enum CellType
     {
-        [Description("O")]
+        [Description("[~]")]
         Empty,
 
-        [Description("B")]
+        [Description("[B]")]
         Battleship,
         
-        [Description("D")]
+        [Description("[D]")]
         Destroyer,
 
-        [Description("X")]
+        [Description("[*]")]
         Hit,
 
-        [Description("M")]
+        [Description("[M]")]
         Miss,
     }
     public class CellModel
@@ -37,9 +37,11 @@ namespace BattleshipLibrary.Boards
 
         public string Status => CellType.GetAttributeOfType<DescriptionAttribute>().Description;
 
-        public bool IsAttacked => CellType == CellType.Battleship || CellType == CellType.Destroyer;
+        //Check if the cell is available or not
+        public bool IsCellOccupied => CellType == CellType.Battleship || CellType == CellType.Destroyer;
 
-        public bool IsCellAvailable => Coordinate.Row % 2 == 0 && Coordinate.Column % 2 == 0 ||
+
+        public bool IsRandomAvailable => Coordinate.Row % 2 == 0 && Coordinate.Column % 2 == 0 ||
                                        Coordinate.Row%2 == 1 && Coordinate.Column % 2 == 1;
         
     }

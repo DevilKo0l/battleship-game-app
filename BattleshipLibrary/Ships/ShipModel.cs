@@ -11,11 +11,9 @@ namespace BattleshipLibrary.Ships
     {
         public string Name { get; set; }
         public int Size { get; set; }
-        public int Hits { get; set; }
-
-        public CellType ShipType { get; set; }
+        public int Hits { get; set; }      
+        public CellType CellType { get; set; }
         public bool IsSunk => Hits == Size;
-        
-
+              
     }
 }
