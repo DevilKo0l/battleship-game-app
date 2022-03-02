@@ -7,7 +7,7 @@ using BattleshipLibrary.Boards;
 using BattleshipLibrary.Helpers;
 using BattleshipLibrary.Ships;
 
-namespace BattleshipLibrary
+namespace BattleshipLibrary.Players
 {
     public enum ShootingReport
     {
@@ -24,31 +24,18 @@ namespace BattleshipLibrary
 
         public bool HasLost => Ships.All(x => x.IsSunk);
 
-        public PlayerModel(string name)
-        {
-            Name = name;
-            GameBoard = new BoardModel();
-            AttackingBoard = new AttackingBoardModel();
-            Ships = new List<ShipModel>()
-            {
-                new DestroyerModel(),
-                new DestroyerModel(),
-                new BattleshipModel()
-            };
-        }
-
         public void PrintBoards()
         {
-            Console.WriteLine(Name+"\n");
+            Console.WriteLine(Name + "\n");
             Console.WriteLine("My Ocean                                                              Rada\n"); ;
-            Console.WriteLine("[ ]  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]  [10]" + "                "+ "[1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]  [10]\n");
-            string[] alphaBet = { "[A]", "[B]", "[C]", "[D]", "[E]", "[F]", "[G]", "[H]", "[I]", "[J]" };
+            Console.WriteLine("[ ]  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]  [10]" + "                " + "[1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]  [10]\n");
+            string[] alphaBet = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]", "[10]" };
             for (int row = 0; row < 10; row++)
             {
-                Console.Write(alphaBet[row]+"  ");
+                Console.Write(alphaBet[row] + "  ");
                 for (int myCol = 0; myCol < 10; myCol++)
                 {
-                    Console.Write(GameBoard.Cells.At(row, myCol).Status+ "  ");
+                    Console.Write(GameBoard.Cells.At(row, myCol).Status + "  ");
                 }
                 Console.Write("               ");
                 for (int attackingCol = 0; attackingCol < 10; attackingCol++)
@@ -75,7 +62,7 @@ namespace BattleshipLibrary
 
                     List<int> cellNumbers = new List<int>();
 
-                    if(direction==0)
+                    if (direction == 0)
                     {
                         for (int i = 0; i < ship.Size; i++)
                         {
@@ -90,12 +77,12 @@ namespace BattleshipLibrary
                         }
                     }
 
-                    if(endRow>10||endCol>10)
+                    if (endRow > 10 || endCol > 10)
                     {
                         isContinue = true;
                         continue;
                     }
-                    
+
                     var ModifiedCells = GameBoard.Cells.Range(startRow, startCol, endRow, endCol);
                     Console.Clear();
                     if (ModifiedCells.Any(x => x.IsCellOccupied))
@@ -104,50 +91,19 @@ namespace BattleshipLibrary
                         continue;
                     }
                     foreach (var cell in ModifiedCells)
-                    {                       
-                            
-                         cell.CellType = ship.CellType;                         
+                    {
+
+                        cell.CellType = ship.CellType;
                     }
                     isContinue = false;
                 }
             }
         }
 
-        private CoordinateModel MissileRandomNavigate()
-        {
-            var availableCells = AttackingBoard.GetAvailableRandomCells();
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-            var cellId = rand.Next(availableCells.Count);
-            return availableCells[cellId];
-        }
-        
-        public CoordinateModel MissileNavigate()
-        {
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-            var availableTarget = AttackingBoard.GetNeighborsForAttackedCell();
-            var randomTargetID = rand.Next(availableTarget.Count);
-            return availableTarget[randomTargetID];
-        }
-
-        public CoordinateModel MissileFire()
-        {
-            var hitTargets = AttackingBoard.GetNeighborsForAttackedCell();
-            CoordinateModel coords;
-            if (hitTargets.Any())
-            {
-                coords = MissileNavigate();
-            }else
-            {
-                coords = MissileRandomNavigate();
-            }
-            Console.WriteLine(Name + " says: Firing at"+coords.Row.ToString());
-            return coords;
-        }
-
         public ShootingReport Report(CoordinateModel coords)
         {
             var cell = GameBoard.Cells.At(coords.Row, coords.Column);
-            if(!cell.IsCellOccupied)
+            if (!cell.IsCellOccupied)
             {
                 Console.WriteLine(Name + " says:\"Miss!\"");
                 return ShootingReport.Miss;
@@ -177,5 +133,7 @@ namespace BattleshipLibrary
                     break;
             }
         }
+
     }
+
 }

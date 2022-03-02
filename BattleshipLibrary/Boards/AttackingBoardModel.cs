@@ -12,8 +12,9 @@ namespace BattleshipLibrary.Boards
     {
         public List<CoordinateModel> GetAvailableRandomCells()
         {
-            return Cells.Where(x => x.CellType == CellType.Empty && x.IsCellOccupied).Select(x => x.Coordinate).ToList();
+            return Cells.Where(x => x.CellType == CellType.Empty && x.IsRandomAvailable).Select(x => x.Coordinate).ToList();
         }
+              
 
         private List<CellModel> GetNeighborsForCell(CoordinateModel coordinate)
         {
